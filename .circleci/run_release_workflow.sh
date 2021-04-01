@@ -13,7 +13,7 @@ status_code=$(curl --request POST \
   --url https://circleci.com/api/v2/project/github/gresham-computing/openid-connect-server/pipeline \
   --header 'Circle-Token: '${CIRCLE_TOKEN}'' \
   --header 'content-type: application/json' \
-  --data '{"branch":"'${BRANCH}'","parameters":{"release": true, "snapshot": false}}' \
+  --data '{"branch":"'${BRANCH}'","parameters":{"release": true}}' \
   -o response.json \
   -w "%{http_code}")
   

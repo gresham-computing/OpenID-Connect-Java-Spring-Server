@@ -1,9 +1,6 @@
 version: 2.1
 
 parameters:
-  snapshot:
-    type: boolean
-    default: true
   release:
     type: boolean
     default: false
@@ -87,7 +84,7 @@ jobs:
 
 workflows:
   build-and-test:
-    when: << pipeline.parameters.snapshot >>
+    unless: << pipeline.parameters.release >>
     jobs:
       - build-and-deploy:
           context:
