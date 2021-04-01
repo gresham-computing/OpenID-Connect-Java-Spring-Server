@@ -30,7 +30,7 @@ jobs:
       - run:
           name: "Setting Maven version"
           command: |
-          MASTER_BRANCH=1.3.x
+            MASTER_BRANCH=1.3.x
             VERSION=$(mvn -s gresham-nexus-settings/ctc.plugins.settings.xml -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
             if [[ "${CIRCLE_BRANCH}" != "${MASTER_BRANCH}" && "${VERSION}" == *-SNAPSHOT ]]; then
               mvn -s gresham-nexus-settings/ctc.plugins.settings.xml versions:set -DnewVersion=${CIRCLE_BRANCH}.GRESHAM-SNAPSHOT -B
