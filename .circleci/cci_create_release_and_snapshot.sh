@@ -7,9 +7,9 @@ function get_version {
     local currentVersion=$(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
     IFS='-' read -r -a parts <<< "$currentVersion"
 
-    local NUMBER="$((${parts[1]} + 1))"
+    local NEXT_NUMBER="$((${parts[1]} + 1))"
     RELEASE_VERSION="${parts[0]}"-"${parts[1]}"
-    NEXT_SNAPSHOT_VERSION="${parts[0]}"-$NUMBER-SNAPSHOT
+    NEXT_SNAPSHOT_VERSION="${parts[0]}"-$NEXT_NUMBER-SNAPSHOT
 }
 
 function bump_to_release {
