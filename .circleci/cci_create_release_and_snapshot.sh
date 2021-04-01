@@ -13,13 +13,13 @@ function get_version {
 }
 
 function bump_to_release {
-    mvn -s gresham-nexus-settings/ctc.plugins.settings.xml versions:set -DnewVersion=$RELEASE_VERSION -DgenerateBackupPoms=false
+    mvn -s gresham-nexus-settings/ctc.plugins.settings.xml versions:set -DnewVersion=$RELEASE_VERSION
     git tag v$RELEASE_VERSION
     echo -e "\nopenid-connect-server release: $RELEASE_VERSION\n"
 }
 
 function bump_to_next_snapshot {
-    mvn -s gresham-nexus-settings/ctc.plugins.settings.xml versions:set -DnewVersion=$NEXT_SNAPSHOT_VERSION -DgenerateBackupPoms=false
+    mvn -s gresham-nexus-settings/ctc.plugins.settings.xml versions:set -DnewVersion=$NEXT_SNAPSHOT_VERSION
     echo -e "\nopenid-connect-server snapshot: $NEXT_SNAPSHOT_VERSION\n"
 }
 
