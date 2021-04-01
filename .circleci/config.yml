@@ -38,17 +38,13 @@ jobs:
           name: "Running Maven build and deploy"
           command: |
             MASTER_BRANCH=1.3.x
-            VERSION=$(mvn -s gresham-nexus-settings/ctc.plugins.settings.xml -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
-            if [[ "${CIRCLE_BRANCH}" != "${MASTER_BRANCH}" && "${VERSION}" == *-SNAPSHOT ]]; then
-              # if on feature branch
-              REPOSITORY=altSnapshotDeploymentRepository=snapshots::default::https://nexus.greshamtech.com/repository/thirdparty-maven-snapshots/
-            elif [[ "${CIRCLE_BRANCH}" == "${MASTER_BRANCH}" && "${VERSION}" == *-SNAPSHOT ]]; then
-              # if on 1.3.x but snapshot
-              REPOSITORY=altSnapshotDeploymentRepository=snapshots::default::https://nexus.greshamtech.com/repository/thirdparty-maven-snapshots/
-            elif [[ "${CIRCLE_BRANCH}" == "${MASTER_BRANCH}" && "${VERSION}" != *-SNAPSHOT ]]; then
-              # if on 1.3.x but not snapshot (i.e building a release)
+            REPOSITORY=altSnapshotDeploymentRepository=snapshots::default::https://nexus.greshamtech.com/repository/thirdparty-maven-snapshots/
+            
+            # if on 1.3.x but not snapshot (i.e building a release)
+            if [[ "${CIRCLE_BRANCH}" == "${MASTER_BRANCH}" && "${VERSION}" != *-SNAPSHOT ]]; then
               REPOSITORY=altReleaseDeploymentRepository=releases::default::https://nexus.greshamtech.com/repository/thirdparty-maven-releases/
             fi
+
             # deploy to appropriate repo
             mvn -s gresham-nexus-settings/ctc.plugins.settings.xml clean deploy \
               -B -V -U -DskipTests -DskipITs \
